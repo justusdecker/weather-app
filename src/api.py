@@ -3,6 +3,18 @@ from requests.exceptions import HTTPError, RequestException, JSONDecodeError
 from datetime import datetime
 from src.ascii_art import c
 
+"""
+
+'cloud_cover' =
+64
+'visibility' =
+26700
+'condition' =
+'dry'
+'solar' =
+0.0
+"""
+
 def get_hour() -> int:
     return datetime.today().hour
 
@@ -105,7 +117,7 @@ def prittify_weather():
     pressure = weather['pressure_msl']
     humidity = weather['relative_humidity']
     dt = convert_string_to_emoji_number(datetime.now().strftime("%H %M %S"))
-
+    
     
     print(f""" 
 🕐 {dt}
@@ -113,7 +125,7 @@ def prittify_weather():
 {ICON_MAPPER.get(icon, '❓')}  {temperature}°C
 
 💨 {windspeed} km/h {get_wind_direction(winddirection)}
-💧 {humidity}%
+💧 {0 if humidity is None else humidity}%
 pressure: {pressure} hPa
           """)
 
@@ -121,10 +133,3 @@ def tcond(t: str):
         match_hour = int(t.split('T')[1].split(':')[0])
         current_hour = get_hour()
         return match_hour == current_hour
-
-        
-
-
-
-
-
